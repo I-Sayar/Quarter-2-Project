@@ -53,7 +53,7 @@ for i in range(0,len(features)-1):
         else:
             tables[i] += [-1]
 
-def conditional_naive_bayes(X,y):
+def complement_naive_bayes(X,y):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     cnb = ComplementNB() #better with imbalanced datasets we have an 8:2 ratio
     cnb.fit(X_train, y_train)
