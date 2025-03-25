@@ -22,38 +22,41 @@ def cramers_v(data):
     v = (chi2/ (n*(min(rows, cols) - 1)))**0.5
     return v
 
-with open("Discretized_HeartAttack.csv") as f:
-    reader = csv.reader(f)
-    features = next(reader)
+def get_data():
+    with open("Discretized_HeartAttack.csv") as f:
+        reader = csv.reader(f)
+        features = next(reader)
 
-    split = dict()
-    for i in range(len(features)):
-        split[i] = []
-    for row in reader:
-        for i, r in enumerate(row):
-            split[i] += [r]
-j = [i for i in range(len(features)-1)]
-data = pd.DataFrame(split)
+        split = dict()
+        for i in range(len(features)):
+            split[i] = []
+        for row in reader:
+            for i, r in enumerate(row):
+                split[i] += [r]
+    j = [i for i in range(len(features)-1)]
+    data = pd.DataFrame(split)
 
-vs = []
-v_max = 0
-tables = [[] for i in range(len(features)-1)]
-maxes =  [0 for i in range(len(features)-1)]
-for i in range(0,len(features)-1):
-    #contingency_tables += [pd.crosstab(data[i], data[len(features)-1])]
-    #why is there like an extra loop here???? 
-    #looping over it 22*22 times instead of just 22 times???
-    for index in range(0,len(features)-1):
-        if (index != i):
-            p = pd.crosstab(data[i],data[index])
-            v = cramers_v(p)
-            tables[i] += [v]
-            if v > maxes[i]:
-                maxes[i] = v
-        else:
-            tables[i] += [-1]
+    vs = []
+    v_max = 0
+    tables = [[] for i in range(len(features)-1)]
+    maxes =  [0 for i in range(len(features)-1)]
+    for i in range(0,len(features)-1):
+        #contingency_tables += [pd.crosstab(data[i], data[len(features)-1])]
+        #why is there like an extra loop here???? 
+        #looping over it 22*22 times instead of just 22 times???
+        for index in range(0,len(features)-1):
+            if (index != i):
+                p = pd.crosstab(data[i],data[index])
+                v = cramers_v(p)
+                tables[i] += [v]
+                if v > maxes[i]:
+                    maxes[i] = v
+            else:
+                tables[i] += [-1]
+    return features, tables, maxes, data
 
-def complement_naive_bayes(X,y):
+def complement_naive_bayes(data):
+    X,y = data
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     cnb = ComplementNB() #better with imbalanced datasets we have an 8:2 ratio
     cnb.fit(X_train, y_train)
@@ -72,7 +75,8 @@ def complement_naive_bayes(X,y):
     plt.title("Confusion Matrix")
     plt.show()
 
-def full_mca(X,y):
+def full_mca(data):
+    X,y = data
     mca = prince.MCA(n_components=2,random_state=42)
     transformed = mca.fit_transform(pd.DataFrame(X))
     X_train, X_test, y_train, y_test = train_test_split(transformed, y, test_size=0.2, random_state=42)
@@ -93,7 +97,8 @@ def full_mca(X,y):
     plt.title("Confusion Matrix")
     plt.show()
 
-def hierarchical_mca(X,y):
+def hierarchical_mca(data,features, tables,maxes):
+
     # print(tables)
     mca_set =[[i] for i in range(len(features)-1)]
     naive_set = []
