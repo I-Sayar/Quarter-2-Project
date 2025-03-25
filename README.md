@@ -1,4 +1,9 @@
 # Quarter-2-Project
+Hierarchical Multiple Correspondence Analysis 
+
+Naive Bayes is a widely used probabilistic classifier but suffers from the assumption of attribute independence, leading to inaccuracies when features are correlated. To address this, we apply Hierarchical Multiple Correspondence Analysis (HMCA), a structured dimensionality reduction technique tailored for categorical data. Unlike Principal Component Analysis (PCA), which merges categories into uninterpretable continuous values, HMCA preserves meaningful relationships between categorical features while reducing redundancy. By breaking down dependencies at both local and global levels, HMCA restructures the dataset for improved classification accuracy. Our results demonstrate that integrating HMCA with Naive Bayes enhances predictive performance, making it a viable approach for datasets with complex feature interactions.
+
+
 This project applies different machine learning approaches to a discretized dataset. The process involves using `discretize.py` on the `ORIGINAL_dataset`, followed by calling various functions to analyze the data using different classification techniques.
 
 1. **Discretization**: Apply `discretize.py` to the `ORIGINAL_dataset`.
