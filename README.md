@@ -1,6 +1,6 @@
 # Quarter-2-Project
 
-Use discritize on ORIGINAL_dataset then 
+Use discritize on ORIGINAL_dataset then use discritize.py
 
 Call "get_data" which returns data, features, table, maxes
 
