@@ -9,17 +9,10 @@ This project applies different machine learning approaches to a discretized data
    - `maxes`: Maximum values of features (if applicable)
 3. **Apply Machine Learning Approaches**:
    - **Control (Complement Naive Bayes)**: Use `complement_naive_bayes(data)`.
-   - **Approach 2 (Full MCA)**: Use `full_mca(data)`.
-   - **Approach 3 (Hierarchical MCA)**: Use `hierarchical_mca(data, features, table, maxes)`.
+   - **Approach 1 (Full MCA)**: Use `full_mca(data)`.
+   - **Approach 2 (Hierarchical MCA)**: Use `hierarchical_mca(data, features, table, maxes)`.
 
 ## Usage
-### Prerequisites
-Ensure you have the necessary dependencies installed before running the scripts.
-
-```bash
-pip install -r requirements.txt
-```
-
 ### Running the Project
 1. **Discretize the dataset**:
    ```python
